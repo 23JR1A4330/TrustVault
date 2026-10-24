@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}<div class="card"><h2>Administrative Audit Trail</h2>
+<table><tr><th>Time</th><th>User</th><th>Document</th><th>Action</th><th>Result</th><th>Details</th><th>IP</th></tr>
+{% for x in logs %}<tr><td>{{x.created_at}}</td><td>{{x.user_name}}</td><td>{{x.document_name or "-"}}</td><td>{{x.action}}</td><td>{{"SUCCESS" if x.success else "DENIED"}}</td><td>{{x.details}}</td><td>{{x.ip_address}}</td></tr>{% endfor %}
+</table></div>{% endblock %}

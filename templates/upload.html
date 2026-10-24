@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}<div class="card">
+<h2>Upload Document</h2><form method="post" enctype="multipart/form-data">
+<input name="name" placeholder="Document name"><br>
+<input name="category" placeholder="Category" value="General"><br>
+<input name="file" type="file" required><br>
+<button>Upload</button> <a class="btn" href="/dashboard">Cancel</a>
+</form><p class="muted">Allowed: PDF, DOC/DOCX, XLS/XLSX, TXT, PNG/JPG. Max 10 MB.</p>
+</div>{% endblock %}

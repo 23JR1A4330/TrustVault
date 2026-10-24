@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}<div class="card"><h2>Permissions: {{doc.name}}</h2>
+<form method="post"><select name="user_id" required>{% for u in users %}<option value="{{u.id}}">{{u.name}} — {{u.email}} ({{u.role}})</option>{% endfor %}</select>
+<label><input type="checkbox" name="can_read" checked> Read</label>
+<label><input type="checkbox" name="can_edit"> Edit</label>
+<button>Grant / Update</button></form></div>
+<div class="card"><table><tr><th>User</th><th>Read</th><th>Edit</th><th>Action</th></tr>
+{% for p in perms %}<tr><td>{{p.name}}<br>{{p.email}}</td><td>{{"Yes" if p.can_read else "No"}}</td><td>{{"Yes" if p.can_edit else "No"}}</td>
+<td><form method="post" action="/documents/{{doc.id}}/permissions/{{p.user_id}}/revoke"><button class="danger">Revoke</button></form></td></tr>{% endfor %}
+</table></div>{% endblock %}

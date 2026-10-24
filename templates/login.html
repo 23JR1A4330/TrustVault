@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<div class="card" style="max-width:430px;margin:70px auto">
+<h2>TrustVault Login</h2>
+<form method="post">
+<input name="email" type="email" placeholder="Email" required style="width:95%">
+<input name="password" type="password" placeholder="Password" required style="width:95%">
+<button type="submit">Login</button>
+</form>
+<p class="muted">Demo credentials are in README.md</p>
+</div>{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block content %}
+<div class="card"><h2>Document Vault</h2>
+<p>Signed in as <b>{{user.name}}</b> ({{user.role}})</p>
+{% if user.role in ["admin","owner"] %}<a class="btn" href="/upload">Upload document</a>{% endif %}
+<form method="get" style="margin-top:15px">
+<input name="q" placeholder="Document name" value="{{request.args.get('q','')}}">
+<input name="owner" placeholder="Owner" value="{{request.args.get('owner','')}}">
+<input type="date" name="date" value="{{request.args.get('date','')}}">
+<select name="category"><option value="">All categories</option>{% for c in categories %}<option {% if request.args.get('category')==c.category %}selected{% endif %}>{{c.category}}</option>{% endfor %}</select>
+<button>Search</button>
+</form></div>
+<div class="card"><table><tr><th>Name</th><th>Owner</th><th>Category</th><th>Actions</th></tr>
+{% for d in docs %}
+<tr><td>{{d.name}}</td><td>{{d.owner_name}}</td><td>{{d.category}}</td><td>
+<a class="btn" href="/documents/{{d.id}}/download">Download</a>
+{% if user.role=="admin" or d.owner_id==user.id %}<a class="btn" href="/documents/{{d.id}}/permissions">Permissions</a>{% endif %}
+{% if user.role=="admin" or d.owner_id==user.id %}<a class="btn" href="/documents/{{d.id}}/edit">Edit</a>
+<form method="post" action="/documents/{{d.id}}/delete" style="display:inline" onsubmit="return confirm('Delete document?')"><button class="danger">Delete</button></form>{% endif %}
+</td></tr>
+{% else %}<tr><td colspan="4">No documents available.</td></tr>{% endfor %}
+</table></div>{% endblock %}
